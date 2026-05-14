@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --alc-primary: #b85c38;
+  --alc-cream: #fff4e6;
+  --alc-bg: #f7e7ce;
+  --alc-olive: #6f7d4f;
+  --alc-text: #3a2a1e;
+  --alc-gold: #d9a441;
+  --alc-muted: #7a6048;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--alc-bg);
+  color: var(--alc-text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+body {
+  overflow-x: hidden;
+}

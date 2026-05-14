@@ -1,0 +1,36 @@
+<article class="overflow-hidden rounded-[2rem] bg-[#FFF4E6] shadow-sm transition active:scale-[0.99]">
+  <div
+    class="h-44"
+    [style.background]="imageGradient"
+  ></div>
+
+  <div class="p-5">
+    <div class="mb-3 flex items-start justify-between gap-4">
+      <div>
+        <h3 class="text-xl font-bold">
+          {{ title }}
+        </h3>
+
+        <p class="mt-1 text-sm text-[#7A6048]">
+          {{ description }}
+        </p>
+      </div>
+
+      <span class="shrink-0 rounded-full bg-[#6F7D4F]/15 px-3 py-1 text-xs font-bold text-[#6F7D4F]">
+        {{ difficulty }}
+      </span>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 text-sm font-semibold text-[#7A6048]">
+      <span>{{ time }}</span>
+
+      <span class="h-1 w-1 rounded-full bg-[#D9A441]"></span>
+
+      <span>{{ servings }}</span>
+
+      <span class="h-1 w-1 rounded-full bg-[#D9A441]"></span>
+
+      <span>{{ category }}</span>
+    </div>
+  </div>
+</article>
