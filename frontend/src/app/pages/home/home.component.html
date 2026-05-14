@@ -72,9 +72,9 @@
       Ver todas
     </button>
   </section>
-
   <section class="space-y-4">
-    @for (recipe of recipes; track recipe.title) {
+  @for (recipe of recipes; track recipe.id) {
+    <a class="block no-underline" [routerLink]="['/receitas', recipe.id]">
       <app-recipe-card
         [title]="recipe.title"
         [description]="recipe.description"
@@ -84,6 +84,7 @@
         [category]="recipe.category"
         [variant]="recipe.variant"
       ></app-recipe-card>
+    </a>
     }
   </section>
 </section>

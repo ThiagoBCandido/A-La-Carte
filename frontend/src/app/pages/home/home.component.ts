@@ -1,32 +1,16 @@
 import { Component } from '@angular/core';
 import { RecipeCardComponent } from '../../shared/components/recipe-card/recipe-card.component';
+import { MOCK_RECIPES } from '../../shared/data/mock.recipes';
+import { Recipe } from '../../core/models/recipe.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RecipeCardComponent],
+  imports: [RecipeCardComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  recipes = [
-    {
-      title: 'Massa ao molho rústico',
-      description: 'Simples, confortável e cheia de sabor.',
-      difficulty: 'Fácil',
-      time: '35 min',
-      servings: '2 porções',
-      category: 'Jantar',
-      variant: 'warm' as const
-    },
-    {
-      title: 'Salada de ervas frescas',
-      description: 'Leve, prática e perfeita para acompanhar.',
-      difficulty: 'Rápida',
-      time: '15 min',
-      servings: '1 porção',
-      category: 'Saudável',
-      variant: 'green' as const
-    }
-  ];
+  recipes: Recipe[] = MOCK_RECIPES;
 }
