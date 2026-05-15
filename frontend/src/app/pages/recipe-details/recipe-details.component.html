@@ -1,20 +1,20 @@
 <section class="mx-auto min-h-screen max-w-md px-5 pb-28 pt-6">
   @if (recipe) {
-    <header class="mb-5 flex items-center justify-between gap-4">
+    <header class="mb-5 flex items-center gap-4">
       <a
-        class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFF4E6] text-xl font-bold text-[#B85C38] shadow-sm active:scale-95"
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFF4E6] text-2xl font-bold text-[#5B3A2B] shadow-sm active:scale-95"
         routerLink="/"
         aria-label="Voltar para receitas"
       >
         ‹
       </a>
 
-      <div class="flex-1">
-        <p class="text-sm font-semibold text-[#6F7D4F]">
+      <div class="min-w-0">
+        <p class="text-sm font-bold text-[#7D8D57]">
           Detalhes da receita
         </p>
 
-        <h1 class="mt-1 line-clamp-1 text-2xl font-bold tracking-tight">
+        <h1 class="mt-1 truncate text-2xl font-black tracking-tight text-[#2F211A]">
           {{ recipe.title }}
         </h1>
       </div>
@@ -22,13 +22,25 @@
 
     <section class="mb-6 overflow-hidden rounded-[2rem] bg-[#FFF4E6] shadow-sm">
       <div
-        class="h-56"
+        class="relative h-56"
         [style.background]="
           recipe.variant === 'green'
             ? 'linear-gradient(135deg, rgba(111, 125, 79, 0.35), rgba(184, 92, 56, 0.25))'
             : 'linear-gradient(135deg, rgba(184, 92, 56, 0.35), rgba(217, 164, 65, 0.35))'
         "
-      ></div>
+      >
+        <button
+          class="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white/60 shadow-sm backdrop-blur-sm active:scale-95"
+          type="button"
+          aria-label="Adicionar foto da receita"
+        >
+          <img
+            class="h-6 w-6 opacity-80"
+            src="assets/icons/camera.svg"
+            alt=""
+          />
+        </button>
+      </div>
 
       <div class="p-5">
         <div class="mb-4 flex items-start justify-between gap-4">
