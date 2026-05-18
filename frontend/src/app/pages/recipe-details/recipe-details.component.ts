@@ -32,16 +32,65 @@ export class RecipeDetailsComponent {
     return this.recipeStorage.getRecipeById(this.recipeId);
   }
 
+  onPhotoSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (!file || !this.recipe) {
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      input.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (!this.recipe) {
+        return;
+      }
+
+      this.recipe.imageUrl = String(reader.result);
+      this.recipeStorage.updateRecipe(this.recipe);
+    };
+
+    reader.readAsDataURL(file);
+    input.value = '';
+  }
+
+  removePhoto(): void {
+    if (!this.recipe) {
+      return;
+    }
+
+    this.recipe.imageUrl = undefined;
+    this.recipeStorage.updateRecipe(this.recipe);
+  }
+
   toggleIngredient(ingredient: Ingredient): void {
     ingredient.checked = !ingredient.checked;
+
+    if (this.recipe) {
+      this.recipeStorage.updateRecipe(this.recipe);
+    }
   }
 
   toggleStep(step: PreparationStep): void {
     step.checked = !step.checked;
+
+    if (this.recipe) {
+      this.recipeStorage.updateRecipe(this.recipe);
+    }
   }
 
   toggleEditList(): void {
     this.isEditingList = !this.isEditingList;
+
+    if (!this.isEditingList && this.recipe) {
+      this.recipeStorage.updateRecipe(this.recipe);
+    }
   }
 
   addIngredient(): void {
@@ -60,6 +109,8 @@ export class RecipeDetailsComponent {
     this.newIngredientName = '';
     this.newIngredientQuantity = 1;
     this.newIngredientUnit = '';
+
+    this.recipeStorage.updateRecipe(this.recipe);
   }
 
   removeIngredient(ingredientId: string): void {
@@ -70,6 +121,8 @@ export class RecipeDetailsComponent {
     this.recipe.ingredients = this.recipe.ingredients.filter(
       (ingredient) => String(ingredient.id) !== String(ingredientId)
     );
+
+    this.recipeStorage.updateRecipe(this.recipe);
   }
 
   addStep(): void {
@@ -85,6 +138,8 @@ export class RecipeDetailsComponent {
     });
 
     this.newStepDescription = '';
+
+    this.recipeStorage.updateRecipe(this.recipe);
   }
 
   removeStep(stepId: string): void {
@@ -98,6 +153,8 @@ export class RecipeDetailsComponent {
         ...step,
         order: index + 1
       }));
+
+    this.recipeStorage.updateRecipe(this.recipe);
   }
 
   openDeleteDialog(): void {

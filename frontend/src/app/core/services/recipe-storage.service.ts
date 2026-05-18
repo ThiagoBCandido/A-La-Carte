@@ -19,6 +19,7 @@ type RecipeDraft = {
   time: string;
   servings: string;
   category: string;
+  imageUrl?: string;
   ingredients: RecipeDraftIngredient[];
   steps: RecipeDraftStep[];
 };
@@ -37,8 +38,13 @@ export class RecipeStorageService {
       return !deletedRecipeIds.includes(String(recipe.id));
     });
 
+    const savedRecipeIds = new Set(savedRecipes.map((recipe) => String(recipe.id)));
+
     const mockRecipes = this.cloneRecipes(MOCK_RECIPES).filter((recipe) => {
-      return !deletedRecipeIds.includes(String(recipe.id));
+      return (
+        !deletedRecipeIds.includes(String(recipe.id)) &&
+        !savedRecipeIds.has(String(recipe.id))
+      );
     });
 
     return [...savedRecipes, ...mockRecipes];
@@ -63,6 +69,7 @@ export class RecipeStorageService {
       category: recipeDraft.category,
       favorite: false,
       variant: 'warm',
+      imageUrl: recipeDraft.imageUrl,
       ingredients: recipeDraft.ingredients.map((ingredient) => ({
         id: this.createId(),
         name: ingredient.name,
@@ -83,6 +90,16 @@ export class RecipeStorageService {
     this.saveRecipes([newRecipe, ...savedRecipes]);
 
     return newRecipe;
+  }
+
+  updateRecipe(updatedRecipe: Recipe): void {
+    const normalizedRecipe = this.cloneRecipes([updatedRecipe])[0];
+
+    const savedRecipes = this.getSavedRecipes().filter((recipe) => {
+      return String(recipe.id) !== String(normalizedRecipe.id);
+    });
+
+    this.saveRecipes([normalizedRecipe, ...savedRecipes]);
   }
 
   deleteRecipe(recipeId: string): void {

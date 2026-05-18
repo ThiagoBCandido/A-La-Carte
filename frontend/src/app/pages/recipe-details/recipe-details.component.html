@@ -14,10 +14,20 @@
       </div>
     </header>
     <section class="mb-6 overflow-hidden rounded-[2rem] bg-[#FFF4E6] shadow-sm">
-      <div class="relative h-56" [style.background]="recipe.variant === 'green' ? 'linear-gradient(135deg, rgba(111, 125, 79, 0.35), rgba(184, 92, 56, 0.25))' : 'linear-gradient(135deg, rgba(184, 92, 56, 0.35), rgba(217, 164, 65, 0.35))'">
-        <button class="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white/60 shadow-sm backdrop-blur-sm active:scale-95" type="button" aria-label="Adicionar foto da receita">
+      <div class="relative h-56 overflow-hidden" [style.background]="recipe.variant === 'green' ? 'linear-gradient(135deg, rgba(111, 125, 79, 0.35), rgba(184, 92, 56, 0.25))' : 'linear-gradient(135deg, rgba(184, 92, 56, 0.35), rgba(217, 164, 65, 0.35))'">
+        @if (recipe.imageUrl) {
+          <img class="h-full w-full object-cover" [src]="recipe.imageUrl" alt="Foto da receita" />
+          <div class="absolute inset-0 bg-black/10"></div>
+        }
+        <input #photoInput class="hidden" type="file" accept="image/*" (change)="onPhotoSelected($event)" />
+        <button class="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white/70 shadow-sm backdrop-blur-sm active:scale-95" type="button" aria-label="Adicionar foto da receita" (click)="photoInput.click()">
           <img class="h-6 w-6 opacity-80" src="assets/icons/camera.svg" alt="" />
         </button>
+        @if (recipe.imageUrl) {
+          <button class="absolute bottom-4 right-4 rounded-2xl bg-white/80 px-4 py-2 text-xs font-bold text-[#5B3A2B] shadow-sm backdrop-blur-sm active:scale-95" type="button" (click)="removePhoto()">
+            Remover foto
+          </button>
+        }
       </div>
       <div class="p-5">
         <div class="mb-4 flex items-start justify-between gap-4">

@@ -33,6 +33,7 @@ export class NewRecipeComponent {
   difficulty: Recipe['difficulty'] = 'Média';
   time = '';
   servings: number | null = null;
+  imageUrl: string | undefined;
 
   newIngredientName = '';
   newIngredientQuantity: number | null = null;
@@ -54,6 +55,33 @@ export class NewRecipeComponent {
       this.ingredients.length > 0 &&
       this.steps.length > 0
     );
+  }
+
+  onPhotoSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      input.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imageUrl = String(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+    input.value = '';
+  }
+
+  removePhoto(): void {
+    this.imageUrl = undefined;
   }
 
   addIngredient(): void {
@@ -111,6 +139,7 @@ export class NewRecipeComponent {
       difficulty: this.difficulty,
       time: this.time.trim(),
       servings: this.formatServings(this.servings),
+      imageUrl: this.imageUrl,
       ingredients: this.ingredients.map((ingredient) => ({
         name: ingredient.name,
         quantity: ingredient.quantity,

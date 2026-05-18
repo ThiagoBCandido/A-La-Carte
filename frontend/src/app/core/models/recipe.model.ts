@@ -1,29 +1,31 @@
-export interface Ingredient {
+export type RecipeVariant = 'warm' | 'green';
+
+export type Ingredient = {
   id: string;
   name: string;
   quantity: number;
   unit: string;
   checked: boolean;
-}
+};
 
-export interface PreparationStep {
+export type PreparationStep = {
   id: string;
   order: number;
   description: string;
   checked: boolean;
-}
+};
 
-export interface Recipe {
+export type Recipe = {
   id: string;
   title: string;
   description: string;
-  difficulty: 'Fácil' | 'Média' | 'Difícil' | 'Rápida';
+  difficulty: string;
   time: string;
   servings: string;
   category: string;
-  imageUrl?: string;
   favorite: boolean;
-  variant: 'warm' | 'green';
+  variant: RecipeVariant;
+  imageUrl?: string;
   ingredients: Ingredient[];
   steps: PreparationStep[];
-}
+};

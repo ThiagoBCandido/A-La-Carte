@@ -1,26 +1,29 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+type RecipeCardData = {
+  id: number | string;
+  title: string;
+  category: string;
+  description: string;
+  time: string;
+  servings: string;
+  difficulty: string;
+  imageUrl?: string | null;
+  image?: string | null;
+  photoUrl?: string | null;
+};
 
 @Component({
   selector: 'app-recipe-card',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './recipe-card.component.html',
-  styleUrl: './recipe-card.component.css'
 })
 export class RecipeCardComponent {
-  @Input({ required: true }) title = '';
-  @Input({ required: true }) description = '';
-  @Input({ required: true }) difficulty = '';
-  @Input({ required: true }) time = '';
-  @Input({ required: true }) servings = '';
-  @Input({ required: true }) category = '';
-  @Input() variant: 'warm' | 'green' = 'warm';
+  @Input({ required: true }) recipe!: RecipeCardData;
 
-  get imageGradient(): string {
-    if (this.variant === 'green') {
-      return 'linear-gradient(135deg, rgba(111, 125, 79, 0.35), rgba(184, 92, 56, 0.25))';
-    }
-
-    return 'linear-gradient(135deg, rgba(184, 92, 56, 0.35), rgba(217, 164, 65, 0.35))';
+  get coverImage(): string | null {
+    return this.recipe.imageUrl || this.recipe.image || this.recipe.photoUrl || null;
   }
 }
