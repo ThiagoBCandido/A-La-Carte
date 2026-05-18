@@ -40,4 +40,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.recipes = this.recipeStorage.getRecipes();
   }
+
+  toggleFavorite(recipeId: string): void {
+    this.recipes = this.recipeStorage.toggleFavorite(recipeId);
+  }
 }

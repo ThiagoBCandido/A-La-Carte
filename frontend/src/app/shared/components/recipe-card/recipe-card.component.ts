@@ -1,18 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-type RecipeCardData = {
-  id: number | string;
-  title: string;
-  category: string;
-  description: string;
-  time: string;
-  servings: string;
-  difficulty: string;
-  imageUrl?: string | null;
-  image?: string | null;
-  photoUrl?: string | null;
-};
+import { Recipe } from '../../../core/models/recipe.model';
 
 @Component({
   selector: 'app-recipe-card',
@@ -21,9 +9,17 @@ type RecipeCardData = {
   templateUrl: './recipe-card.component.html',
 })
 export class RecipeCardComponent {
-  @Input({ required: true }) recipe!: RecipeCardData;
+  @Input({ required: true }) recipe!: Recipe;
+  @Output() favoriteToggle = new EventEmitter<string>();
 
   get coverImage(): string | null {
-    return this.recipe.imageUrl || this.recipe.image || this.recipe.photoUrl || null;
+    return this.recipe.imageUrl || null;
+  }
+
+  toggleFavorite(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.favoriteToggle.emit(this.recipe.id);
   }
 }

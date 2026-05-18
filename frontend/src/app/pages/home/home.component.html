@@ -2,17 +2,15 @@
   <header class="mb-6 flex items-center justify-between gap-4">
     <div>
       <p class="text-sm font-semibold text-[#6F7D4F]">
-        Bienvenue, Chef! 
+        Bienvenue, Chef!
       </p>
       <h1 class="mt-1 text-4xl font-bold tracking-tight text-[#3A2A1E]">
         À La Carte
       </h1>
     </div>
     <button class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF4E6] text-2xl font-bold text-[#B85C38] shadow-sm active:scale-95" type="button" aria-label="Adicionar nova receita">
-      <a class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF4E6] shadow-sm active:scale-95"
-        routerLink="/receitas/nova"
-        aria-label="Criar nova receita">
-        <img class="h-4 w-4" src="assets/icons/plus.svg" alt=""/>
+      <a class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF4E6] shadow-sm active:scale-95" routerLink="/receitas/nova" aria-label="Criar nova receita">
+        <img class="h-4 w-4" src="assets/icons/plus.svg" alt="" />
       </a>
     </button>
   </header>
@@ -67,7 +65,7 @@
   </section>
   <section class="space-y-4">
     @for (recipe of recipes; track recipe.id) {
-      <app-recipe-card [recipe]="recipe"></app-recipe-card>
+      <app-recipe-card [recipe]="recipe" (favoriteToggle)="toggleFavorite($event)"></app-recipe-card>
     }
   </section>
 </section>

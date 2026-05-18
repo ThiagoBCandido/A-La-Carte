@@ -58,6 +58,27 @@ export class RecipeStorageService {
     return this.getRecipes().find((recipe) => String(recipe.id) === String(id));
   }
 
+  getFavoriteRecipes(): Recipe[] {
+    return this.getRecipes().filter((recipe) => recipe.favorite);
+  }
+
+  toggleFavorite(recipeId: string): Recipe[] {
+    const recipe = this.getRecipeById(recipeId);
+
+    if (!recipe) {
+      return this.getRecipes();
+    }
+
+    const updatedRecipe: Recipe = {
+      ...recipe,
+      favorite: !recipe.favorite
+    };
+
+    this.updateRecipe(updatedRecipe);
+
+    return this.getRecipes();
+  }
+
   addRecipe(recipeDraft: RecipeDraft): Recipe {
     const newRecipe: Recipe = {
       id: this.createId(),
@@ -178,18 +199,29 @@ export class RecipeStorageService {
   }
 
   private cloneRecipes(recipes: Recipe[]): Recipe[] {
-    return recipes.map((recipe) => ({
-      ...recipe,
-      id: String(recipe.id),
-      ingredients: recipe.ingredients.map((ingredient) => ({
-        ...ingredient,
-        id: String(ingredient.id)
-      })),
-      steps: recipe.steps.map((step) => ({
-        ...step,
-        id: String(step.id)
-      }))
-    }));
+    return recipes.map((recipe) => {
+      const legacyRecipe = recipe as Recipe & { isFavorite?: boolean };
+
+      const favorite =
+        typeof recipe.favorite === 'boolean'
+          ? recipe.favorite
+          : Boolean(legacyRecipe.isFavorite);
+
+      return {
+        ...recipe,
+        id: String(recipe.id),
+        favorite,
+        variant: recipe.variant === 'green' ? 'green' : 'warm',
+        ingredients: (recipe.ingredients ?? []).map((ingredient) => ({
+          ...ingredient,
+          id: String(ingredient.id)
+        })),
+        steps: (recipe.steps ?? []).map((step) => ({
+          ...step,
+          id: String(step.id)
+        }))
+      };
+    });
   }
 
   private createId(): string {
