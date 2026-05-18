@@ -14,9 +14,9 @@
       </div>
     </header>
     <section class="mb-6 overflow-hidden rounded-[2rem] bg-[#FFF4E6] shadow-sm">
-      <div class="relative h-56" [style.background]=" recipe.variant === 'green' ? 'linear-gradient(135deg, rgba(111, 125, 79, 0.35), rgba(184, 92, 56, 0.25))' : 'linear-gradient(135deg, rgba(184, 92, 56, 0.35), rgba(217, 164, 65, 0.35))'">
+      <div class="relative h-56" [style.background]="recipe.variant === 'green' ? 'linear-gradient(135deg, rgba(111, 125, 79, 0.35), rgba(184, 92, 56, 0.25))' : 'linear-gradient(135deg, rgba(184, 92, 56, 0.35), rgba(217, 164, 65, 0.35))'">
         <button class="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white/60 shadow-sm backdrop-blur-sm active:scale-95" type="button" aria-label="Adicionar foto da receita">
-          <img class="h-6 w-6 opacity-80" src="assets/icons/camera.svg" alt=""/>
+          <img class="h-6 w-6 opacity-80" src="assets/icons/camera.svg" alt="" />
         </button>
       </div>
       <div class="p-5">
@@ -82,9 +82,9 @@
         @for (ingredient of recipe.ingredients; track ingredient.id) {
           @if (isEditingList) {
             <div class="grid grid-cols-[1fr_5rem_5rem_2.5rem] gap-2 rounded-2xl bg-[#F7E7CE] p-3">
-              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[#3A2A1E] outline-none" type="text" aria-label="Nome do ingrediente" [(ngModel)]="ingredient.name"/>
-              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="0" aria-label="Quantidade" [(ngModel)]="ingredient.quantity"/>
-              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="text" aria-label="Unidade" [(ngModel)]="ingredient.unit"/>
+              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[#3A2A1E] outline-none" type="text" aria-label="Nome do ingrediente" [(ngModel)]="ingredient.name" />
+              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="0" aria-label="Quantidade" [(ngModel)]="ingredient.quantity" />
+              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="text" aria-label="Unidade" [(ngModel)]="ingredient.unit" />
               <button class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover ingrediente" (click)="removeIngredient(ingredient.id)">
                 ×
               </button>
@@ -94,7 +94,6 @@
               <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-sm font-black transition" [style.border-color]="ingredient.checked ? '#6F7D4F' : '#D8C4A5'" [style.background-color]="ingredient.checked ? '#6F7D4F' : 'transparent'" [style.color]="ingredient.checked ? '#FFFFFF' : 'transparent'">
                 ✓
               </span>
-
               <span class="min-w-0 flex-1">
                 <span class="block text-sm font-bold transition" [style.color]="ingredient.checked ? '#4F6F32' : '#2F211A'">
                   {{ ingredient.name }}
@@ -109,15 +108,13 @@
             </button>
           }
         }
-
         @if (isEditingList) {
           <div class="rounded-2xl border border-dashed border-[#B85C38]/35 bg-white/50 p-3">
             <div class="grid grid-cols-[1fr_5rem_5rem] gap-2">
-              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[#3A2A1E] outline-none" type="text" placeholder="Ingrediente" aria-label="Novo ingrediente" [(ngModel)]="newIngredientName"/>
-              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="0" aria-label="Nova quantidade" [(ngModel)]="newIngredientQuantity"/>
-              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="text" placeholder="un" aria-label="Nova unidade" [(ngModel)]="newIngredientUnit"/>
+              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[#3A2A1E] outline-none" type="text" placeholder="Ingrediente" aria-label="Novo ingrediente" [(ngModel)]="newIngredientName" />
+              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="0" aria-label="Nova quantidade" [(ngModel)]="newIngredientQuantity" />
+              <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="text" placeholder="un" aria-label="Nova unidade" [(ngModel)]="newIngredientUnit" />
             </div>
-
             <button class="mt-3 w-full rounded-xl bg-[#6F7D4F] px-4 py-2 text-sm font-bold text-white active:scale-[0.98]" type="button" (click)="addIngredient()">
               Adicionar ingrediente
             </button>
@@ -125,35 +122,29 @@
         }
       </div>
     </section>
-
     <section class="mb-6 rounded-[2rem] bg-[#FFF4E6] p-5 shadow-sm">
       <div class="mb-5 flex items-center justify-between gap-4">
         <div>
           <p class="text-sm font-bold text-[#7D8D57]">
             Preparo
           </p>
-
           <h2 class="mt-1 text-xl font-black text-[#2F211A]">
             Modo de preparo
           </h2>
-
           <p class="mt-1 text-sm leading-relaxed text-[#7A6048]">
             Marque cada etapa conforme for preparando.
           </p>
         </div>
-
         <span class="shrink-0 rounded-full bg-[#B85C38]/10 px-3 py-1 text-xs font-bold text-[#B85C38]">
           {{ recipe.steps.length }} passos
         </span>
       </div>
-
       <div class="space-y-3">
         @for (step of recipe.steps; track step.id) {
           @if (isEditingList) {
             <div class="flex gap-3 rounded-2xl bg-[#F7E7CE] p-3">
-              <input class="h-10 w-12 shrink-0 rounded-xl bg-white px-2 text-center text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="1" aria-label="Ordem do passo" [(ngModel)]="step.order"/>
-              <textarea class="min-h-20 flex-1 resize-none rounded-xl bg-white px-3 py-2 text-sm leading-relaxed text-[#3A2A1E] outline-none" aria-label="Descrição do passo" [(ngModel)]="step.description">
-              </textarea>
+              <input class="h-10 w-12 shrink-0 rounded-xl bg-white px-2 text-center text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="1" aria-label="Ordem do passo" [(ngModel)]="step.order" />
+              <textarea class="min-h-20 flex-1 resize-none rounded-xl bg-white px-3 py-2 text-sm leading-relaxed text-[#3A2A1E] outline-none" aria-label="Descrição do passo" [(ngModel)]="step.description"></textarea>
               <button class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover passo" (click)="removeStep(step.id)">
                 ×
               </button>
@@ -188,9 +179,41 @@
         }
       </div>
     </section>
-    <button class="w-full rounded-2xl bg-[#B85C38] px-5 py-4 text-base font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="toggleEditList()">
-      {{ isEditingList ? 'Concluir edição' : 'Editar lista' }}
-    </button>
+    <div class="space-y-3">
+      <button class="w-full rounded-2xl bg-[#B85C38] px-5 py-4 text-base font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="toggleEditList()">
+        {{ isEditingList ? 'Concluir edição' : 'Editar lista' }}
+      </button>
+      <button class="w-full rounded-2xl border border-[#B85C38]/25 bg-[#FFF4E6] px-5 py-4 text-base font-bold text-[#B85C38] shadow-sm active:scale-[0.98]" type="button" (click)="openDeleteDialog()">
+        Excluir receita
+      </button>
+    </div>
+    @if (showDeleteDialog) {
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5 backdrop-blur-sm">
+        <div class="w-full max-w-sm rounded-[2rem] bg-[#FFF4E6] p-5 shadow-xl">
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#B85C38]/10 text-2xl font-black text-[#B85C38]">
+            !
+          </div>
+          <h2 class="text-center text-xl font-black text-[#2F211A]">
+            Excluir receita?
+          </h2>
+          <p class="mt-2 text-center text-sm leading-relaxed text-[#7A6048]">
+            Essa ação removerá
+            <strong class="font-bold text-[#2F211A]">
+              {{ recipe.title }}
+            </strong>
+            da sua lista de receitas.
+          </p>
+          <div class="mt-6 grid grid-cols-2 gap-3">
+            <button class="rounded-2xl bg-[#F7E7CE] px-4 py-3 text-sm font-bold text-[#5B3A2B] active:scale-[0.98]" type="button" (click)="closeDeleteDialog()">
+              Cancelar
+            </button>
+            <button class="rounded-2xl bg-[#B85C38] px-4 py-3 text-sm font-bold text-white active:scale-[0.98]" type="button" (click)="confirmDeleteRecipe()">
+              Excluir
+            </button>
+          </div>
+        </div>
+      </div>
+    }
   } @else {
     <section class="flex min-h-screen flex-col items-center justify-center text-center">
       <div class="rounded-[2rem] bg-[#FFF4E6] p-6 shadow-sm">

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { RecipeCardComponent } from '../../shared/components/recipe-card/recipe-card.component';
-import { MOCK_RECIPES } from '../../shared/data/mock.recipes';
 import { Recipe } from '../../core/models/recipe.model';
+import { RecipeStorageService } from '../../core/services/recipe-storage.service';
+import { RecipeCardComponent } from '../../shared/components/recipe-card/recipe-card.component';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +11,10 @@ import { Recipe } from '../../core/models/recipe.model';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-  recipes: Recipe[] = MOCK_RECIPES;
+export class HomeComponent implements OnInit {
+  private readonly recipeStorage = inject(RecipeStorageService);
+
+  recipes: Recipe[] = [];
 
   get totalRecipes(): number {
     return this.recipes.length;
@@ -23,6 +25,19 @@ export class HomeComponent {
   }
 
   get totalQuickRecipes(): number {
-    return this.recipes.filter((recipe) => recipe.difficulty === 'Rápida').length;
+    return this.recipes.filter((recipe) => {
+      const time = recipe.time.toLowerCase();
+
+      return (
+        recipe.difficulty === 'Rápida' ||
+        time.includes('15') ||
+        time.includes('20') ||
+        time.includes('30')
+      );
+    }).length;
+  }
+
+  ngOnInit(): void {
+    this.recipes = this.recipeStorage.getRecipes();
   }
 }

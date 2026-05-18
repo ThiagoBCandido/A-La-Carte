@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { Recipe } from '../../core/models/recipe.model';
+import { RecipeStorageService } from '../../core/services/recipe-storage.service';
 
 type NewRecipeIngredient = {
-  id: number;
+  id: string;
   name: string;
   quantity: number;
   unit: string;
 };
 
 type NewRecipeStep = {
-  id: number;
+  id: string;
   description: string;
 };
 
@@ -21,12 +23,14 @@ type NewRecipeStep = {
   templateUrl: './new-recipe.component.html',
   styleUrl: './new-recipe.component.css'
 })
-
 export class NewRecipeComponent {
+  private readonly router = inject(Router);
+  private readonly recipeStorage = inject(RecipeStorageService);
+
   title = '';
   description = '';
   category = '';
-  difficulty = 'Média';
+  difficulty: Recipe['difficulty'] = 'Média';
   time = '';
   servings: number | null = null;
 
@@ -39,17 +43,16 @@ export class NewRecipeComponent {
   ingredients: NewRecipeIngredient[] = [];
   steps: NewRecipeStep[] = [];
 
-  private nextIngredientId = 1;
-  private nextStepId = 1;
-
-  constructor(private router: Router) {}
-
   get canSave(): boolean {
     return (
-      this.title.trim().length > 0 && this.description.trim().length > 0 &&
-      this.category.trim().length > 0 && this.time.trim().length > 0 &&
-      this.servings !== null && this.servings > 0 &&
-      this.ingredients.length > 0 && this.steps.length > 0
+      this.title.trim().length > 0 &&
+      this.description.trim().length > 0 &&
+      this.category.trim().length > 0 &&
+      this.time.trim().length > 0 &&
+      this.servings !== null &&
+      this.servings > 0 &&
+      this.ingredients.length > 0 &&
+      this.steps.length > 0
     );
   }
 
@@ -62,7 +65,7 @@ export class NewRecipeComponent {
     }
 
     this.ingredients.push({
-      id: this.nextIngredientId++,
+      id: this.createId(),
       name,
       quantity: this.newIngredientQuantity,
       unit
@@ -73,7 +76,7 @@ export class NewRecipeComponent {
     this.newIngredientUnit = '';
   }
 
-  removeIngredient(id: number): void {
+  removeIngredient(id: string): void {
     this.ingredients = this.ingredients.filter((ingredient) => ingredient.id !== id);
   }
 
@@ -85,35 +88,51 @@ export class NewRecipeComponent {
     }
 
     this.steps.push({
-      id: this.nextStepId++,
+      id: this.createId(),
       description
     });
 
     this.newStepDescription = '';
   }
 
-  removeStep(id: number): void {
+  removeStep(id: string): void {
     this.steps = this.steps.filter((step) => step.id !== id);
   }
 
   saveRecipe(): void {
-    if (!this.canSave) {
+    if (!this.canSave || this.servings === null) {
       return;
     }
 
-    const newRecipe = {
+    const recipe = this.recipeStorage.addRecipe({
       title: this.title.trim(),
       description: this.description.trim(),
       category: this.category.trim(),
       difficulty: this.difficulty,
       time: this.time.trim(),
-      servings: this.servings,
-      ingredients: this.ingredients,
-      steps: this.steps
-    };
+      servings: this.formatServings(this.servings),
+      ingredients: this.ingredients.map((ingredient) => ({
+        name: ingredient.name,
+        quantity: ingredient.quantity,
+        unit: ingredient.unit
+      })),
+      steps: this.steps.map((step) => ({
+        description: step.description
+      }))
+    });
 
-    console.log('Nova receita:', newRecipe);
+    this.router.navigate(['/receitas', recipe.id]);
+  }
 
-    this.router.navigate(['/']);
+  private formatServings(servings: number): string {
+    return servings === 1 ? '1 porção' : `${servings} porções`;
+  }
+
+  private createId(): string {
+    if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+      return crypto.randomUUID();
+    }
+
+    return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 }

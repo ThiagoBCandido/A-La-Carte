@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { MOCK_RECIPES } from '../../shared/data/mock.recipes';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Ingredient, PreparationStep, Recipe } from '../../core/models/recipe.model';
+import { RecipeStorageService } from '../../core/services/recipe-storage.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -13,28 +13,23 @@ import { Ingredient, PreparationStep, Recipe } from '../../core/models/recipe.mo
 })
 export class RecipeDetailsComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly recipeStorage = inject(RecipeStorageService);
 
   private readonly recipeId = this.route.snapshot.paramMap.get('id');
 
   recipe: Recipe | undefined = this.getRecipe();
+
   isEditingList = false;
+  showDeleteDialog = false;
+
   newIngredientName = '';
   newIngredientQuantity = 1;
   newIngredientUnit = '';
   newStepDescription = '';
 
   private getRecipe(): Recipe | undefined {
-    const recipe = MOCK_RECIPES.find((recipe) => recipe.id === this.recipeId);
-
-    if (!recipe) {
-      return undefined;
-    }
-
-    return {
-      ...recipe,
-      ingredients: recipe.ingredients.map((ingredient) => ({ ...ingredient })),
-      steps: recipe.steps.map((step) => ({ ...step }))
-    };
+    return this.recipeStorage.getRecipeById(this.recipeId);
   }
 
   toggleIngredient(ingredient: Ingredient): void {
@@ -55,7 +50,7 @@ export class RecipeDetailsComponent {
     }
 
     this.recipe.ingredients.push({
-      id: crypto.randomUUID(),
+      id: this.createId(),
       name: this.newIngredientName.trim(),
       quantity: this.newIngredientQuantity,
       unit: this.newIngredientUnit.trim(),
@@ -73,7 +68,7 @@ export class RecipeDetailsComponent {
     }
 
     this.recipe.ingredients = this.recipe.ingredients.filter(
-      (ingredient) => ingredient.id !== ingredientId
+      (ingredient) => String(ingredient.id) !== String(ingredientId)
     );
   }
 
@@ -83,7 +78,7 @@ export class RecipeDetailsComponent {
     }
 
     this.recipe.steps.push({
-      id: crypto.randomUUID(),
+      id: this.createId(),
       order: this.recipe.steps.length + 1,
       description: this.newStepDescription.trim(),
       checked: false
@@ -98,10 +93,36 @@ export class RecipeDetailsComponent {
     }
 
     this.recipe.steps = this.recipe.steps
-      .filter((step) => step.id !== stepId)
+      .filter((step) => String(step.id) !== String(stepId))
       .map((step, index) => ({
         ...step,
         order: index + 1
       }));
+  }
+
+  openDeleteDialog(): void {
+    this.showDeleteDialog = true;
+  }
+
+  closeDeleteDialog(): void {
+    this.showDeleteDialog = false;
+  }
+
+  confirmDeleteRecipe(): void {
+    if (!this.recipe) {
+      return;
+    }
+
+    this.recipeStorage.deleteRecipe(this.recipe.id);
+    this.showDeleteDialog = false;
+    this.router.navigate(['/']);
+  }
+
+  private createId(): string {
+    if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+      return crypto.randomUUID();
+    }
+
+    return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 }
