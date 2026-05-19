@@ -1,7 +1,10 @@
 ﻿<section class="mx-auto min-h-screen max-w-md px-5 pb-28 pt-6">
   @if (recipe) {
     <header class="mb-5 flex items-center gap-4">
-      <a class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFF4E6] text-2xl font-bold text-[#5B3A2B] shadow-sm active:scale-95" routerLink="/" aria-label="Voltar para receitas">â€¹</a>
+      <a class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFF4E6] text-2xl font-bold text-[#5B3A2B] shadow-sm active:scale-95" routerLink="/" aria-label="Voltar para receitas"> 
+        <span class="h-5 w-5 bg-[#5B3A2B] [mask-image:url('/assets/icons/return.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/return.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" aria-hidden="true">
+        </span>
+      </a>
       <div class="min-w-0">
         <p class="text-sm font-bold text-[#7D8D57]">Detalhes da receita</p>
         <h1 class="mt-1 truncate text-2xl font-black tracking-tight text-[#2F211A]">{{ recipe.title }}</h1>
@@ -35,7 +38,7 @@
             <p class="mt-1 text-sm font-bold">{{ recipe.time }}</p>
           </div>
           <div class="rounded-2xl bg-[#F7E7CE] p-3">
-            <p class="text-xs font-semibold text-[#7A6048]">PorÃ§Ãµes</p>
+            <p class="text-xs font-semibold text-[#7A6048]">Porções</p>
             <p class="mt-1 text-sm font-bold">{{ recipe.servings }}</p>
           </div>
           <div class="rounded-2xl bg-[#F7E7CE] p-3">
@@ -50,14 +53,14 @@
         <div>
           <p class="text-sm font-bold text-[#7D8D57]">Checklist</p>
           <h2 class="mt-1 text-xl font-black text-[#2F211A]">Ingredientes</h2>
-          <p class="mt-1 text-sm leading-relaxed text-[#7A6048]">Marque os itens que vocÃª jÃ¡ separou.</p>
+          <p class="mt-1 text-sm leading-relaxed text-[#7A6048]">Marque os itens que você já separou.</p>
         </div>
         <span class="shrink-0 rounded-full bg-[#B85C38]/10 px-3 py-1 text-xs font-bold text-[#B85C38]">{{ recipe.ingredients.length }} itens</span>
       </div>
       <div class="mb-4 space-y-3">
         <button class="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#6F7D4F] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="addIngredientsToShoppingList()">
           <span class="text-lg leading-none">+</span>
-          Adicionar ingredientes Ã  lista
+          Adicionar ingredientes àlista
         </button>
         @if (shoppingListFeedback) {
           <p class="rounded-2xl bg-[#6F7D4F]/10 px-4 py-3 text-center text-xs font-bold text-[#6F7D4F]">{{ shoppingListFeedback }}</p>
@@ -141,7 +144,7 @@
       </div>
     </section>
     <div class="space-y-3">
-      <button class="w-full rounded-2xl bg-[#B85C38] px-5 py-4 text-base font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="toggleEditList()">{{ isEditingList ? 'Concluir ediÃ§Ã£o' : 'Editar lista' }}</button>
+      <button class="w-full rounded-2xl bg-[#B85C38] px-5 py-4 text-base font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="toggleEditList()">{{ isEditingList ? 'Concluir edição' : 'Editar lista' }}</button>
       <button class="w-full rounded-2xl border border-[#B85C38]/25 bg-[#FFF4E6] px-5 py-4 text-base font-bold text-[#B85C38] shadow-sm active:scale-[0.98]" type="button" (click)="openDeleteDialog()">Excluir receita</button>
     </div>
     @if (showDeleteDialog) {
@@ -150,7 +153,7 @@
           <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#B85C38]/10 text-2xl font-black text-[#B85C38]">!</div>
           <h2 class="text-center text-xl font-black text-[#2F211A]">Excluir receita?</h2>
           <p class="mt-2 text-center text-sm leading-relaxed text-[#7A6048]">
-            Essa aÃ§Ã£o removerÃ¡
+            Essa ação removerá
             <strong class="font-bold text-[#2F211A]">{{ recipe.title }}</strong>
             da sua lista de receitas.
           </p>
@@ -164,8 +167,8 @@
   } @else {
     <section class="flex min-h-screen flex-col items-center justify-center text-center">
       <div class="rounded-[2rem] bg-[#FFF4E6] p-6 shadow-sm">
-        <h1 class="text-2xl font-bold">Receita nÃ£o encontrada</h1>
-        <p class="mt-2 text-sm text-[#7A6048]">NÃ£o encontramos essa receita na sua lista.</p>
+        <h1 class="text-2xl font-bold">Receita não encontrada</h1>
+        <p class="mt-2 text-sm text-[#7A6048]">Não encontramos essa receita na sua lista.</p>
         <a class="mt-5 inline-flex rounded-2xl bg-[#B85C38] px-5 py-3 text-sm font-bold text-white" routerLink="/">Voltar para receitas</a>
       </div>
     </section>
