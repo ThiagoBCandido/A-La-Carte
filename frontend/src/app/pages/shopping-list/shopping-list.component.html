@@ -38,7 +38,9 @@
               <span class="mt-1 block truncate text-[11px] font-bold uppercase tracking-wide text-[#B85C38]">{{ item.recipeTitle }}</span>
             </span>
           </button>
-          <button class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover item" (click)="removeItem(item.id)">Ã—</button>
+          <button class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover item" (click)="removeItem(item.id)">
+            <span class="h-4 w-4 bg-[#B85C38] [mask-image:url('/assets/icons/excluir.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/excluir.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" aria-hidden="true"></span>
+          </button>
         </div>
       }
     </section>

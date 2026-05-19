@@ -73,7 +73,9 @@
               <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[#3A2A1E] outline-none" type="text" aria-label="Nome do ingrediente" [(ngModel)]="ingredient.name" />
               <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="0" aria-label="Quantidade" [(ngModel)]="ingredient.quantity" />
               <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="text" aria-label="Unidade" [(ngModel)]="ingredient.unit" />
-              <button class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover ingrediente" (click)="removeIngredient(ingredient.id)">Ã—</button>
+              <button class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover ingrediente" (click)="removeIngredient(ingredient.id)">
+                <span class="h-4 w-4 bg-[#B85C38] [mask-image:url('/assets/icons/excluir.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/excluir.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" aria-hidden="true"></span>
+              </button>
             </div>
           } @else {
             <button class="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left transition active:scale-[0.98]" [style.background-color]="ingredient.checked ? '#E4F1D5' : '#F7E7CE'" type="button" (click)="toggleIngredient(ingredient)">
@@ -116,8 +118,9 @@
           @if (isEditingList) {
             <div class="flex gap-3 rounded-2xl bg-[#F7E7CE] p-3">
               <input class="h-10 w-12 shrink-0 rounded-xl bg-white px-2 text-center text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="1" aria-label="Ordem do passo" [(ngModel)]="step.order" />
-              <textarea class="min-h-20 flex-1 resize-none rounded-xl bg-white px-3 py-2 text-sm leading-relaxed text-[#3A2A1E] outline-none" aria-label="DescriÃ§Ã£o do passo" [(ngModel)]="step.description"></textarea>
-              <button class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover passo" (click)="removeStep(step.id)">Ã—</button>
+              <textarea class="min-h-20 flex-1 resize-none rounded-xl bg-white px-3 py-2 text-sm leading-relaxed text-[#3A2A1E] outline-none" aria-label="Descrição do passo" [(ngModel)]="step.description"></textarea>
+              <button class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover passo" (click)="removeStep(step.id)">
+                <span class="h-4 w-4 bg-[#B85C38] [mask-image:url('/assets/icons/excluir.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/excluir.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" aria-hidden="true"></span></button>
             </div>
           } @else {
             <button class="flex w-full gap-3 rounded-2xl px-4 py-4 text-left transition active:scale-[0.98]" [style.background-color]="step.checked ? '#E4F1D5' : '#F7E7CE'" type="button" (click)="toggleStep(step)">
