@@ -24,8 +24,20 @@ export type Recipe = {
   servings: string;
   category: string;
   favorite: boolean;
+  isFavorite?: boolean;
   variant: RecipeVariant;
   imageUrl?: string;
   ingredients: Ingredient[];
   steps: PreparationStep[];
+};
+
+export type ShoppingListItem = {
+  id: string;
+  recipeId: string;
+  recipeTitle: string;
+  ingredientId: string;
+  name: string;
+  quantity: number;
+  unit: string;
+  checked: boolean;
 };

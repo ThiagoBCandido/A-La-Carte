@@ -17,12 +17,13 @@ export class RecipeDetailsComponent {
   private readonly recipeStorage = inject(RecipeStorageService);
 
   private readonly recipeId = this.route.snapshot.paramMap.get('id');
+  private shoppingListFeedbackTimeout?: ReturnType<typeof setTimeout>;
 
   recipe: Recipe | undefined = this.getRecipe();
 
   isEditingList = false;
   showDeleteDialog = false;
-
+  shoppingListFeedback = '';
   newIngredientName = '';
   newIngredientQuantity = 1;
   newIngredientUnit = '';
@@ -67,6 +68,27 @@ export class RecipeDetailsComponent {
 
     this.recipe.imageUrl = undefined;
     this.recipeStorage.updateRecipe(this.recipe);
+  }
+
+  addIngredientsToShoppingList(): void {
+    if (!this.recipe) {
+      return;
+    }
+
+    const addedItems = this.recipeStorage.addRecipeIngredientsToShoppingList(this.recipe.id);
+
+    this.shoppingListFeedback =
+      addedItems > 0
+        ? `${addedItems} ingrediente${addedItems > 1 ? 's' : ''} adicionado${addedItems > 1 ? 's' : ''} à lista.`
+        : 'Os ingredientes desta receita já estão na lista.';
+
+    if (this.shoppingListFeedbackTimeout) {
+      clearTimeout(this.shoppingListFeedbackTimeout);
+    }
+
+    this.shoppingListFeedbackTimeout = setTimeout(() => {
+      this.shoppingListFeedback = '';
+    }, 2600);
   }
 
   toggleIngredient(ingredient: Ingredient): void {

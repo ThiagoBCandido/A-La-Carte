@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from '../models/recipe.model';
+import { Recipe, ShoppingListItem } from '../models/recipe.model';
 import { MOCK_RECIPES } from '../../shared/data/mock.recipes';
 
 type RecipeDraftIngredient = {
@@ -30,6 +30,7 @@ type RecipeDraft = {
 export class RecipeStorageService {
   private readonly storageKey = 'alacarte-recipes';
   private readonly deletedRecipesKey = 'alacarte-deleted-recipes';
+  private readonly shoppingListKey = 'alacarte-shopping-list';
 
   getRecipes(): Recipe[] {
     const deletedRecipeIds = this.getDeletedRecipeIds();
@@ -137,6 +138,103 @@ export class RecipeStorageService {
     if (!deletedRecipeIds.includes(normalizedRecipeId)) {
       this.saveDeletedRecipeIds([...deletedRecipeIds, normalizedRecipeId]);
     }
+
+    const shoppingListItems = this.getShoppingListItems().filter((item) => {
+      return String(item.recipeId) !== normalizedRecipeId;
+    });
+
+    this.saveShoppingListItems(shoppingListItems);
+  }
+
+  getShoppingListItems(): ShoppingListItem[] {
+    if (!this.canUseLocalStorage()) {
+      return [];
+    }
+
+    const shoppingListJson = window.localStorage.getItem(this.shoppingListKey);
+
+    if (!shoppingListJson) {
+      return [];
+    }
+
+    try {
+      const items = JSON.parse(shoppingListJson) as ShoppingListItem[];
+      return this.normalizeShoppingListItems(items);
+    } catch {
+      window.localStorage.removeItem(this.shoppingListKey);
+      return [];
+    }
+  }
+
+  addRecipeIngredientsToShoppingList(recipeId: string): number {
+    const recipe = this.getRecipeById(recipeId);
+
+    if (!recipe) {
+      return 0;
+    }
+
+    const currentItems = this.getShoppingListItems();
+
+    const currentKeys = new Set(
+      currentItems.map((item) => {
+        return this.createShoppingListItemKey(item.recipeId, item.ingredientId);
+      })
+    );
+
+    const newItems: ShoppingListItem[] = recipe.ingredients
+      .filter((ingredient) => {
+        const key = this.createShoppingListItemKey(recipe.id, ingredient.id);
+        return !currentKeys.has(key);
+      })
+      .map((ingredient) => ({
+        id: this.createId(),
+        recipeId: String(recipe.id),
+        recipeTitle: recipe.title,
+        ingredientId: String(ingredient.id),
+        name: ingredient.name,
+        quantity: Number(ingredient.quantity) || 0,
+        unit: ingredient.unit,
+        checked: false
+      }));
+
+    if (newItems.length === 0) {
+      return 0;
+    }
+
+    this.saveShoppingListItems([...newItems, ...currentItems]);
+
+    return newItems.length;
+  }
+
+  toggleShoppingListItem(itemId: string): ShoppingListItem[] {
+    const updatedItems = this.getShoppingListItems().map((item) => {
+      if (String(item.id) !== String(itemId)) {
+        return item;
+      }
+
+      return {
+        ...item,
+        checked: !item.checked
+      };
+    });
+
+    this.saveShoppingListItems(updatedItems);
+
+    return updatedItems;
+  }
+
+  removeShoppingListItem(itemId: string): ShoppingListItem[] {
+    const updatedItems = this.getShoppingListItems().filter((item) => {
+      return String(item.id) !== String(itemId);
+    });
+
+    this.saveShoppingListItems(updatedItems);
+
+    return updatedItems;
+  }
+
+  clearShoppingList(): void {
+    this.saveShoppingListItems([]);
   }
 
   private getSavedRecipes(): Recipe[] {
@@ -198,6 +296,14 @@ export class RecipeStorageService {
     );
   }
 
+  private saveShoppingListItems(items: ShoppingListItem[]): void {
+    if (!this.canUseLocalStorage()) {
+      return;
+    }
+
+    window.localStorage.setItem(this.shoppingListKey, JSON.stringify(items));
+  }
+
   private cloneRecipes(recipes: Recipe[]): Recipe[] {
     return recipes.map((recipe) => {
       const legacyRecipe = recipe as Recipe & { isFavorite?: boolean };
@@ -222,6 +328,25 @@ export class RecipeStorageService {
         }))
       };
     });
+  }
+
+  private normalizeShoppingListItems(items: ShoppingListItem[]): ShoppingListItem[] {
+    return items
+      .filter((item) => item && item.name)
+      .map((item) => ({
+        id: String(item.id ?? this.createId()),
+        recipeId: String(item.recipeId ?? ''),
+        recipeTitle: String(item.recipeTitle ?? 'Receita'),
+        ingredientId: String(item.ingredientId ?? item.id ?? this.createId()),
+        name: String(item.name),
+        quantity: Number(item.quantity) || 0,
+        unit: String(item.unit ?? ''),
+        checked: Boolean(item.checked)
+      }));
+  }
+
+  private createShoppingListItemKey(recipeId: string, ingredientId: string): string {
+    return `${String(recipeId)}-${String(ingredientId)}`;
   }
 
   private createId(): string {

@@ -88,6 +88,18 @@
           {{ recipe.ingredients.length }} itens
         </span>
       </div>
+      <!--lista-->
+      <div class="mb-4 space-y-3">
+        <button class="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#6F7D4F] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="addIngredientsToShoppingList()">
+          <span class="text-lg leading-none">+</span>
+          Adicionar ingredientes à lista
+        </button>
+        @if (shoppingListFeedback) {
+          <p class="rounded-2xl bg-[#6F7D4F]/10 px-4 py-3 text-center text-xs font-bold text-[#6F7D4F]">
+            {{ shoppingListFeedback }}
+          </p>
+        }
+      </div>
       <div class="space-y-3">
         @for (ingredient of recipe.ingredients; track ingredient.id) {
           @if (isEditingList) {
