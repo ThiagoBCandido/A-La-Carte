@@ -1,8 +1,8 @@
 {
   "name": "a-la-carte",
   "short_name": "a-la-carte",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#F7E7CE",
+  "background_color": "#F7E7CE",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
