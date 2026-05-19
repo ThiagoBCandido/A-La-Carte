@@ -2,7 +2,35 @@
 
 À La Carte é uma aplicação mobile-first para gerenciamento de receitas, criada com Angular e Tailwind CSS.
 
-O projeto foi pensado como um livro de receitas pessoal, com foco em organização, uso simples e armazenamento local. A aplicação não possui login, pois a proposta inicial é funcionar como um app local-first, onde as receitas ficam salvas no próprio dispositivo do usuário.
+O projeto funciona como um livro de receitas pessoal, com foco em organização, praticidade e armazenamento local. A aplicação não precisa de backend, pois os dados são salvos no próprio dispositivo/navegador do usuário.
+
+## Acesse a aplicação
+
+A aplicação está disponível em:
+
+```txt
+https://a-la-carte-navy.vercel.app/receitas
+```
+
+## Como instalar na tela inicial do celular
+
+A aplicação pode ser adicionada à tela inicial do celular como um app.
+
+### iPhone
+
+1. Abra o link da aplicação no Safari.
+2. Toque no botão de compartilhar.
+3. Selecione **Adicionar à Tela de Início**.
+4. Confirme em **Adicionar**.
+
+Depois disso, o À La Carte ficará disponível como um ícone na tela inicial do iPhone.
+
+### Android
+
+1. Abra o link da aplicação no navegador.
+2. Toque no menu do navegador.
+3. Selecione **Adicionar à tela inicial** ou **Instalar app**.
+4. Confirme a instalação.
 
 ## Objetivo
 
@@ -30,14 +58,31 @@ A aplicação permite cadastrar receitas com foto, ingredientes, quantidades, mo
 - Exportação de backup em JSON
 - Importação de backup em JSON
 - Restauração do aplicativo para o estado inicial
+- Suporte a PWA para uso como app instalado na tela inicial
 
 ## Conceito do projeto
 
 O À La Carte foi desenvolvido como uma aplicação local-first.
 
-Isso significa que os dados são salvos localmente no navegador, sem necessidade de login, conta de usuário ou backend obrigatório nesta fase.
+Isso significa que a aplicação não depende de login, conta de usuário ou backend. Os dados ficam salvos localmente no navegador/dispositivo do usuário.
 
-A decisão de não usar login foi tomada para manter o app mais simples, direto e adequado ao uso pessoal, principalmente pensando em uma futura versão mobile.
+Essa decisão foi tomada para manter o app simples, rápido e adequado ao uso pessoal, principalmente pensando no uso em celulares.
+
+## A aplicação precisa de backend?
+
+Não.
+
+Nesta versão, o À La Carte não precisa de backend.
+
+Como a aplicação não possui login e salva os dados localmente, um backend não é necessário para o funcionamento principal do projeto.
+
+Um backend só faria sentido futuramente caso o projeto evoluísse para recursos como:
+
+- sincronização entre dispositivos
+- backup automático em nuvem
+- compartilhamento de receitas
+- conta de usuário
+- acesso às mesmas receitas em múltiplos aparelhos
 
 ## Armazenamento local
 
@@ -65,6 +110,7 @@ Importante: se os dados do navegador forem apagados, as receitas também podem s
 - HTML
 - CSS
 - LocalStorage
+- PWA
 
 ## Estrutura do projeto
 
@@ -90,12 +136,16 @@ alacarte/
 │   │   │   └── shared/
 │   │   │       └── components/
 │   │   │
-│   │   └── assets/
-│   │       └── icons/
+│   │   ├── assets/
+│   │   │   ├── icons/
+│   │   │   └── menu-icons/
+│   │   │
+│   │   └── manifest.webmanifest
 │   │
 │   ├── angular.json
 │   ├── package.json
-│   └── tailwind.config.js
+│   ├── tailwind.config.js
+│   └── ngsw-config.json
 │
 └── README.md
 ```
@@ -177,7 +227,7 @@ Permite:
 - Limpar lista de compras
 - Restaurar o aplicativo para o estado inicial
 
-## Como rodar o projeto
+## Como rodar o projeto localmente
 
 Acesse a pasta do frontend:
 
@@ -223,6 +273,39 @@ Os arquivos de build serão gerados na pasta:
 frontend/dist/
 ```
 
+## Testando o build localmente
+
+Após gerar o build, é possível servir a versão de produção localmente:
+
+```bash
+http-server dist/a-la-carte/browser -p 8080 -c-1
+```
+
+Depois acesse:
+
+```txt
+http://localhost:8080
+```
+
+## Deploy
+
+O projeto está publicado na Vercel.
+
+Link da aplicação:
+
+```txt
+https://a-la-carte-navy.vercel.app/receitas
+```
+
+Configurações principais do deploy:
+
+```txt
+Root Directory: frontend
+Build Command: npm run build
+Output Directory: dist/a-la-carte/browser
+Install Command: npm install
+```
+
 ## Status do projeto
 
 O frontend principal está funcional.
@@ -237,29 +320,15 @@ A aplicação já possui as principais funcionalidades locais:
 - ajustes
 - backup
 - restauração de dados
+- suporte a instalação na tela inicial do celular
 
 ## Próximos passos possíveis
 
-- Transformar o projeto em PWA
-- Testar instalação no iPhone via Safari
+- Melhorar ícones e identidade visual da PWA
 - Melhorar armazenamento local usando IndexedDB
 - Preparar versão mobile com Capacitor
 - Preparar versão desktop com Tauri
-- Adicionar backend futuramente apenas se houver necessidade de sincronização entre dispositivos
-
-## Observação sobre backend
-
-Nesta fase, o projeto não depende de backend.
-
-Como a aplicação não possui login e salva os dados localmente, o backend não é obrigatório agora.
-
-Um backend pode ser adicionado futuramente caso o projeto evolua para recursos como:
-
-- sincronização em nuvem
-- backup automático
-- compartilhamento de receitas
-- conta de usuário
-- acesso em múltiplos dispositivos
+- Adicionar sincronização futuramente, apenas se necessário
 
 ## Autor
 
