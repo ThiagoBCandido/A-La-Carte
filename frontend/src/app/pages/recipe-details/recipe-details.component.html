@@ -1,16 +1,10 @@
-<section class="mx-auto min-h-screen max-w-md px-5 pb-28 pt-6">
+﻿<section class="mx-auto min-h-screen max-w-md px-5 pb-28 pt-6">
   @if (recipe) {
     <header class="mb-5 flex items-center gap-4">
-      <a class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFF4E6] text-2xl font-bold text-[#5B3A2B] shadow-sm active:scale-95" routerLink="/" aria-label="Voltar para receitas">
-        ‹
-      </a>
+      <a class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFF4E6] text-2xl font-bold text-[#5B3A2B] shadow-sm active:scale-95" routerLink="/" aria-label="Voltar para receitas">â€¹</a>
       <div class="min-w-0">
-        <p class="text-sm font-bold text-[#7D8D57]">
-          Detalhes da receita
-        </p>
-        <h1 class="mt-1 truncate text-2xl font-black tracking-tight text-[#2F211A]">
-          {{ recipe.title }}
-        </h1>
+        <p class="text-sm font-bold text-[#7D8D57]">Detalhes da receita</p>
+        <h1 class="mt-1 truncate text-2xl font-black tracking-tight text-[#2F211A]">{{ recipe.title }}</h1>
       </div>
     </header>
     <section class="mb-6 overflow-hidden rounded-[2rem] bg-[#FFF4E6] shadow-sm">
@@ -24,49 +18,29 @@
           <img class="h-6 w-6 opacity-80" src="assets/icons/camera.svg" alt="" />
         </button>
         @if (recipe.imageUrl) {
-          <button class="absolute bottom-4 right-4 rounded-2xl bg-white/80 px-4 py-2 text-xs font-bold text-[#5B3A2B] shadow-sm backdrop-blur-sm active:scale-95" type="button" (click)="removePhoto()">
-            Remover foto
-          </button>
+          <button class="absolute bottom-4 right-4 rounded-2xl bg-white/80 px-4 py-2 text-xs font-bold text-[#5B3A2B] shadow-sm backdrop-blur-sm active:scale-95" type="button" (click)="removePhoto()">Remover foto</button>
         }
       </div>
       <div class="p-5">
         <div class="mb-4 flex items-start justify-between gap-4">
           <div>
-            <h2 class="text-2xl font-bold">
-              {{ recipe.title }}
-            </h2>
-            <p class="mt-2 text-sm leading-relaxed text-[#7A6048]">
-              {{ recipe.description }}
-            </p>
+            <h2 class="text-2xl font-bold">{{ recipe.title }}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-[#7A6048]">{{ recipe.description }}</p>
           </div>
-          <span class="shrink-0 rounded-full bg-[#6F7D4F]/15 px-3 py-1 text-xs font-bold text-[#6F7D4F]">
-            {{ recipe.difficulty }}
-          </span>
+          <span class="shrink-0 rounded-full bg-[#6F7D4F]/15 px-3 py-1 text-xs font-bold text-[#6F7D4F]">{{ recipe.difficulty }}</span>
         </div>
         <div class="grid grid-cols-3 gap-3">
           <div class="rounded-2xl bg-[#F7E7CE] p-3">
-            <p class="text-xs font-semibold text-[#7A6048]">
-              Tempo
-            </p>
-            <p class="mt-1 text-sm font-bold">
-              {{ recipe.time }}
-            </p>
+            <p class="text-xs font-semibold text-[#7A6048]">Tempo</p>
+            <p class="mt-1 text-sm font-bold">{{ recipe.time }}</p>
           </div>
           <div class="rounded-2xl bg-[#F7E7CE] p-3">
-            <p class="text-xs font-semibold text-[#7A6048]">
-              Porções
-            </p>
-            <p class="mt-1 text-sm font-bold">
-              {{ recipe.servings }}
-            </p>
+            <p class="text-xs font-semibold text-[#7A6048]">PorÃ§Ãµes</p>
+            <p class="mt-1 text-sm font-bold">{{ recipe.servings }}</p>
           </div>
           <div class="rounded-2xl bg-[#F7E7CE] p-3">
-            <p class="text-xs font-semibold text-[#7A6048]">
-              Categoria
-            </p>
-            <p class="mt-1 text-sm font-bold">
-              {{ recipe.category }}
-            </p>
+            <p class="text-xs font-semibold text-[#7A6048]">Categoria</p>
+            <p class="mt-1 text-sm font-bold">{{ recipe.category }}</p>
           </div>
         </div>
       </div>
@@ -74,30 +48,19 @@
     <section class="mb-6 rounded-[2rem] bg-[#FFF4E6] p-5 shadow-sm">
       <div class="mb-5 flex items-center justify-between gap-4">
         <div>
-          <p class="text-sm font-bold text-[#7D8D57]">
-            Checklist
-          </p>
-          <h2 class="mt-1 text-xl font-black text-[#2F211A]">
-            Ingredientes
-          </h2>
-          <p class="mt-1 text-sm leading-relaxed text-[#7A6048]">
-            Marque os itens que você já separou.
-          </p>
+          <p class="text-sm font-bold text-[#7D8D57]">Checklist</p>
+          <h2 class="mt-1 text-xl font-black text-[#2F211A]">Ingredientes</h2>
+          <p class="mt-1 text-sm leading-relaxed text-[#7A6048]">Marque os itens que vocÃª jÃ¡ separou.</p>
         </div>
-        <span class="shrink-0 rounded-full bg-[#B85C38]/10 px-3 py-1 text-xs font-bold text-[#B85C38]">
-          {{ recipe.ingredients.length }} itens
-        </span>
+        <span class="shrink-0 rounded-full bg-[#B85C38]/10 px-3 py-1 text-xs font-bold text-[#B85C38]">{{ recipe.ingredients.length }} itens</span>
       </div>
-      <!--lista-->
       <div class="mb-4 space-y-3">
         <button class="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#6F7D4F] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="addIngredientsToShoppingList()">
           <span class="text-lg leading-none">+</span>
-          Adicionar ingredientes à lista
+          Adicionar ingredientes Ã  lista
         </button>
         @if (shoppingListFeedback) {
-          <p class="rounded-2xl bg-[#6F7D4F]/10 px-4 py-3 text-center text-xs font-bold text-[#6F7D4F]">
-            {{ shoppingListFeedback }}
-          </p>
+          <p class="rounded-2xl bg-[#6F7D4F]/10 px-4 py-3 text-center text-xs font-bold text-[#6F7D4F]">{{ shoppingListFeedback }}</p>
         }
       </div>
       <div class="space-y-3">
@@ -107,26 +70,20 @@
               <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[#3A2A1E] outline-none" type="text" aria-label="Nome do ingrediente" [(ngModel)]="ingredient.name" />
               <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="0" aria-label="Quantidade" [(ngModel)]="ingredient.quantity" />
               <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="text" aria-label="Unidade" [(ngModel)]="ingredient.unit" />
-              <button class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover ingrediente" (click)="removeIngredient(ingredient.id)">
-                ×
-              </button>
+              <button class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover ingrediente" (click)="removeIngredient(ingredient.id)">Ã—</button>
             </div>
           } @else {
             <button class="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left transition active:scale-[0.98]" [style.background-color]="ingredient.checked ? '#E4F1D5' : '#F7E7CE'" type="button" (click)="toggleIngredient(ingredient)">
-              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-sm font-black transition" [style.border-color]="ingredient.checked ? '#6F7D4F' : '#D8C4A5'" [style.background-color]="ingredient.checked ? '#6F7D4F' : 'transparent'" [style.color]="ingredient.checked ? '#FFFFFF' : 'transparent'">
-                ✓
+              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 transition" [style.border-color]="ingredient.checked ? '#6F7D4F' : '#D8C4A5'" [style.background-color]="ingredient.checked ? '#6F7D4F' : 'transparent'">
+                @if (ingredient.checked) {
+                  <span class="h-3.5 w-3.5 bg-white [mask-image:url('/assets/icons/check-icon.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/check-icon.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" aria-hidden="true"></span>
+                }
               </span>
               <span class="min-w-0 flex-1">
-                <span class="block text-sm font-bold transition" [style.color]="ingredient.checked ? '#4F6F32' : '#2F211A'">
-                  {{ ingredient.name }}
-                </span>
-                <span class="mt-0.5 block text-xs font-medium transition" [style.color]="ingredient.checked ? 'rgba(79, 111, 50, 0.8)' : '#7A6048'">
-                  Item da receita
-                </span>
+                <span class="block text-sm font-bold transition" [style.color]="ingredient.checked ? '#4F6F32' : '#2F211A'">{{ ingredient.name }}</span>
+                <span class="mt-0.5 block text-xs font-medium transition" [style.color]="ingredient.checked ? 'rgba(79, 111, 50, 0.8)' : '#7A6048'">Item da receita</span>
               </span>
-              <span class="shrink-0 rounded-full px-3 py-1 text-xs font-black transition" [style.background-color]="ingredient.checked ? 'rgba(255, 255, 255, 0.6)' : '#FFF4E6'" [style.color]="ingredient.checked ? '#4F6F32' : '#7A6048'">
-                {{ ingredient.quantity }} {{ ingredient.unit }}
-              </span>
+              <span class="shrink-0 rounded-full px-3 py-1 text-xs font-black transition" [style.background-color]="ingredient.checked ? 'rgba(255, 255, 255, 0.6)' : '#FFF4E6'" [style.color]="ingredient.checked ? '#4F6F32' : '#7A6048'">{{ ingredient.quantity }} {{ ingredient.unit }}</span>
             </button>
           }
         }
@@ -137,9 +94,7 @@
               <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="0" aria-label="Nova quantidade" [(ngModel)]="newIngredientQuantity" />
               <input class="min-w-0 rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#3A2A1E] outline-none" type="text" placeholder="un" aria-label="Nova unidade" [(ngModel)]="newIngredientUnit" />
             </div>
-            <button class="mt-3 w-full rounded-xl bg-[#6F7D4F] px-4 py-2 text-sm font-bold text-white active:scale-[0.98]" type="button" (click)="addIngredient()">
-              Adicionar ingrediente
-            </button>
+            <button class="mt-3 w-full rounded-xl bg-[#6F7D4F] px-4 py-2 text-sm font-bold text-white active:scale-[0.98]" type="button" (click)="addIngredient()">Adicionar ingrediente</button>
           </div>
         }
       </div>
@@ -147,46 +102,32 @@
     <section class="mb-6 rounded-[2rem] bg-[#FFF4E6] p-5 shadow-sm">
       <div class="mb-5 flex items-center justify-between gap-4">
         <div>
-          <p class="text-sm font-bold text-[#7D8D57]">
-            Preparo
-          </p>
-          <h2 class="mt-1 text-xl font-black text-[#2F211A]">
-            Modo de preparo
-          </h2>
-          <p class="mt-1 text-sm leading-relaxed text-[#7A6048]">
-            Marque cada etapa conforme for preparando.
-          </p>
+          <p class="text-sm font-bold text-[#7D8D57]">Preparo</p>
+          <h2 class="mt-1 text-xl font-black text-[#2F211A]">Modo de preparo</h2>
+          <p class="mt-1 text-sm leading-relaxed text-[#7A6048]">Marque cada etapa conforme for preparando.</p>
         </div>
-        <span class="shrink-0 rounded-full bg-[#B85C38]/10 px-3 py-1 text-xs font-bold text-[#B85C38]">
-          {{ recipe.steps.length }} passos
-        </span>
+        <span class="shrink-0 rounded-full bg-[#B85C38]/10 px-3 py-1 text-xs font-bold text-[#B85C38]">{{ recipe.steps.length }} passos</span>
       </div>
       <div class="space-y-3">
         @for (step of recipe.steps; track step.id) {
           @if (isEditingList) {
             <div class="flex gap-3 rounded-2xl bg-[#F7E7CE] p-3">
               <input class="h-10 w-12 shrink-0 rounded-xl bg-white px-2 text-center text-sm font-bold text-[#3A2A1E] outline-none" type="number" min="1" aria-label="Ordem do passo" [(ngModel)]="step.order" />
-              <textarea class="min-h-20 flex-1 resize-none rounded-xl bg-white px-3 py-2 text-sm leading-relaxed text-[#3A2A1E] outline-none" aria-label="Descrição do passo" [(ngModel)]="step.description"></textarea>
-              <button class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover passo" (click)="removeStep(step.id)">
-                ×
-              </button>
+              <textarea class="min-h-20 flex-1 resize-none rounded-xl bg-white px-3 py-2 text-sm leading-relaxed text-[#3A2A1E] outline-none" aria-label="DescriÃ§Ã£o do passo" [(ngModel)]="step.description"></textarea>
+              <button class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#B85C38]/10 text-lg font-bold text-[#B85C38] active:scale-95" type="button" aria-label="Remover passo" (click)="removeStep(step.id)">Ã—</button>
             </div>
           } @else {
             <button class="flex w-full gap-3 rounded-2xl px-4 py-4 text-left transition active:scale-[0.98]" [style.background-color]="step.checked ? '#E4F1D5' : '#F7E7CE'" type="button" (click)="toggleStep(step)">
               <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl text-sm font-black text-white transition" [style.background-color]="step.checked ? '#6F7D4F' : '#B85C38'">
                 @if (step.checked) {
-                  ✓
+                  <span class="h-4 w-4 bg-white [mask-image:url('/assets/icons/check-icon.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/check-icon.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" aria-hidden="true"></span>
                 } @else {
                   {{ step.order }}
                 }
               </span>
               <span class="min-w-0 flex-1">
-                <span class="block text-sm font-bold transition" [style.color]="step.checked ? '#4F6F32' : '#2F211A'">
-                  Passo {{ step.order }}
-                </span>
-                <span class="mt-1 block text-sm leading-relaxed transition" [style.color]="step.checked ? 'rgba(79, 111, 50, 0.85)' : '#7A6048'">
-                  {{ step.description }}
-                </span>
+                <span class="block text-sm font-bold transition" [style.color]="step.checked ? '#4F6F32' : '#2F211A'">Passo {{ step.order }}</span>
+                <span class="mt-1 block text-sm leading-relaxed transition" [style.color]="step.checked ? 'rgba(79, 111, 50, 0.85)' : '#7A6048'">{{ step.description }}</span>
               </span>
             </button>
           }
@@ -194,44 +135,28 @@
         @if (isEditingList) {
           <div class="rounded-2xl border border-dashed border-[#B85C38]/35 bg-white/50 p-3">
             <textarea class="min-h-20 w-full resize-none rounded-xl bg-white px-3 py-2 text-sm leading-relaxed text-[#3A2A1E] outline-none" placeholder="Novo passo" aria-label="Novo passo" [(ngModel)]="newStepDescription"></textarea>
-            <button class="mt-3 w-full rounded-xl bg-[#6F7D4F] px-4 py-2 text-sm font-bold text-white active:scale-[0.98]" type="button" (click)="addStep()">
-              Adicionar passo
-            </button>
+            <button class="mt-3 w-full rounded-xl bg-[#6F7D4F] px-4 py-2 text-sm font-bold text-white active:scale-[0.98]" type="button" (click)="addStep()">Adicionar passo</button>
           </div>
         }
       </div>
     </section>
     <div class="space-y-3">
-      <button class="w-full rounded-2xl bg-[#B85C38] px-5 py-4 text-base font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="toggleEditList()">
-        {{ isEditingList ? 'Concluir edição' : 'Editar lista' }}
-      </button>
-      <button class="w-full rounded-2xl border border-[#B85C38]/25 bg-[#FFF4E6] px-5 py-4 text-base font-bold text-[#B85C38] shadow-sm active:scale-[0.98]" type="button" (click)="openDeleteDialog()">
-        Excluir receita
-      </button>
+      <button class="w-full rounded-2xl bg-[#B85C38] px-5 py-4 text-base font-bold text-white shadow-sm active:scale-[0.98]" type="button" (click)="toggleEditList()">{{ isEditingList ? 'Concluir ediÃ§Ã£o' : 'Editar lista' }}</button>
+      <button class="w-full rounded-2xl border border-[#B85C38]/25 bg-[#FFF4E6] px-5 py-4 text-base font-bold text-[#B85C38] shadow-sm active:scale-[0.98]" type="button" (click)="openDeleteDialog()">Excluir receita</button>
     </div>
     @if (showDeleteDialog) {
       <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-5 backdrop-blur-sm">
         <div class="w-full max-w-sm rounded-[2rem] bg-[#FFF4E6] p-5 shadow-xl">
-          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#B85C38]/10 text-2xl font-black text-[#B85C38]">
-            !
-          </div>
-          <h2 class="text-center text-xl font-black text-[#2F211A]">
-            Excluir receita?
-          </h2>
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#B85C38]/10 text-2xl font-black text-[#B85C38]">!</div>
+          <h2 class="text-center text-xl font-black text-[#2F211A]">Excluir receita?</h2>
           <p class="mt-2 text-center text-sm leading-relaxed text-[#7A6048]">
-            Essa ação removerá
-            <strong class="font-bold text-[#2F211A]">
-              {{ recipe.title }}
-            </strong>
+            Essa aÃ§Ã£o removerÃ¡
+            <strong class="font-bold text-[#2F211A]">{{ recipe.title }}</strong>
             da sua lista de receitas.
           </p>
           <div class="mt-6 grid grid-cols-2 gap-3">
-            <button class="rounded-2xl bg-[#F7E7CE] px-4 py-3 text-sm font-bold text-[#5B3A2B] active:scale-[0.98]" type="button" (click)="closeDeleteDialog()">
-              Cancelar
-            </button>
-            <button class="rounded-2xl bg-[#B85C38] px-4 py-3 text-sm font-bold text-white active:scale-[0.98]" type="button" (click)="confirmDeleteRecipe()">
-              Excluir
-            </button>
+            <button class="rounded-2xl bg-[#F7E7CE] px-4 py-3 text-sm font-bold text-[#5B3A2B] active:scale-[0.98]" type="button" (click)="closeDeleteDialog()">Cancelar</button>
+            <button class="rounded-2xl bg-[#B85C38] px-4 py-3 text-sm font-bold text-white active:scale-[0.98]" type="button" (click)="confirmDeleteRecipe()">Excluir</button>
           </div>
         </div>
       </div>
@@ -239,15 +164,9 @@
   } @else {
     <section class="flex min-h-screen flex-col items-center justify-center text-center">
       <div class="rounded-[2rem] bg-[#FFF4E6] p-6 shadow-sm">
-        <h1 class="text-2xl font-bold">
-          Receita não encontrada
-        </h1>
-        <p class="mt-2 text-sm text-[#7A6048]">
-          Não encontramos essa receita na sua lista.
-        </p>
-        <a class="mt-5 inline-flex rounded-2xl bg-[#B85C38] px-5 py-3 text-sm font-bold text-white" routerLink="/">
-          Voltar para receitas
-        </a>
+        <h1 class="text-2xl font-bold">Receita nÃ£o encontrada</h1>
+        <p class="mt-2 text-sm text-[#7A6048]">NÃ£o encontramos essa receita na sua lista.</p>
+        <a class="mt-5 inline-flex rounded-2xl bg-[#B85C38] px-5 py-3 text-sm font-bold text-white" routerLink="/">Voltar para receitas</a>
       </div>
     </section>
   }

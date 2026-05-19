@@ -1,34 +1,44 @@
-<article class="relative w-full overflow-hidden rounded-[28px] bg-[#fff7ed] shadow-sm border border-[#f3e4d2]">
-  <button type="button" class="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-2xl bg-white/90 shadow-sm backdrop-blur-sm transition active:scale-95" [attr.aria-label]="recipe.favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'" (click)="toggleFavorite($event)">
+<article class="relative w-full overflow-hidden rounded-[28px] border border-[#f3e4d2] bg-[#fff7ed] shadow-sm">
+  <button
+    class="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-2xl bg-white/90 shadow-sm backdrop-blur-sm transition active:scale-95"
+    type="button"
+    [attr.aria-label]="recipe.favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
+    (click)="toggleFavorite($event)"
+  >
     @if (recipe.favorite) {
-      <span class="h-5 w-5 bg-[#B85C38] [mask-image:url('/assets/icons/full-heart.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/full-heart.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" aria-hidden="true"></span>
+      <span
+        class="h-5 w-5 bg-[#B85C38] [mask-image:url('/assets/icons/full-heart.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/full-heart.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]"
+        aria-hidden="true"
+      ></span>
     } @else {
-      <span class="h-5 w-5 bg-[#5B3A2B] [mask-image:url('/assets/icons/heart.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/heart.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" aria-hidden="true"></span>
+      <span
+        class="h-5 w-5 bg-[#5B3A2B] [mask-image:url('/assets/icons/heart.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/assets/icons/heart.svg')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]"
+        aria-hidden="true"
+      ></span>
     }
   </button>
-  <a [routerLink]="['/receitas', recipe.id]" class="block w-full active:scale-[0.98] transition-transform duration-200">
+  <a
+    class="block w-full transition-transform duration-200 active:scale-[0.98]"
+    [routerLink]="['/receitas', recipe.id]"
+  >
     <div class="h-32 w-full overflow-hidden bg-[#ead2b5]">
       @if (coverImage) {
-        <img [src]="coverImage" [alt]="recipe.title" class="h-full w-full object-cover" />
+        <img
+          class="h-full w-full object-cover"
+          [src]="coverImage"
+          [alt]="recipe.title"
+        />
       } @else {
         <div class="h-full w-full bg-gradient-to-br from-[#e7bfa3] via-[#edc9a4] to-[#f3d9a9]"></div>
       }
     </div>
     <div class="p-5">
       <div class="mb-3 flex items-center justify-between gap-3">
-        <span class="text-xs font-bold uppercase tracking-[0.18em] text-[#c87345]">
-          {{ recipe.category }}
-        </span>
-        <span class="rounded-full bg-[#e8ead9] px-3 py-1 text-xs font-bold text-[#7c8b4f]">
-          {{ recipe.difficulty }}
-        </span>
+        <span class="text-xs font-bold uppercase tracking-[0.18em] text-[#c87345]">{{ recipe.category }}</span>
+        <span class="rounded-full bg-[#e8ead9] px-3 py-1 text-xs font-bold text-[#7c8b4f]">{{ recipe.difficulty }}</span>
       </div>
-      <h3 class="mb-2 text-xl font-extrabold leading-tight text-[#2f241f]">
-        {{ recipe.title }}
-      </h3>
-      <p class="mb-4 line-clamp-2 text-sm leading-relaxed text-[#8a6f5d]">
-        {{ recipe.description }}
-      </p>
+      <h3 class="mb-2 text-xl font-extrabold leading-tight text-[#2f241f]">{{ recipe.title }}</h3>
+      <p class="mb-4 line-clamp-2 text-sm leading-relaxed text-[#8a6f5d]">{{ recipe.description }}</p>
       <div class="flex items-center gap-3 text-sm font-bold text-[#9a7a61]">
         <span>{{ recipe.time }}</span>
         <span class="h-1 w-1 rounded-full bg-[#c59d80]"></span>
