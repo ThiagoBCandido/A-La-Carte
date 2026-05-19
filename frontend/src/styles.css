@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  min-height: 100%;
-  background-color: #F7E7CE;
-}
-
-body {
-  margin: 0;
-}
-
 :root {
   --alc-primary: #b85c38;
   --alc-cream: #fff4e6;
@@ -44,4 +34,5 @@ select {
 
 body {
   overflow-x: hidden;
+  margin: 0;
 }
